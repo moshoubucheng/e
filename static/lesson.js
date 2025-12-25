@@ -114,9 +114,9 @@
             ).join('');
             const footerHTML = `
                         <div class="end">
-                            <p>---谢谢点赞支持---</p>
+                            <p>---谢谢支持---</p>
                             <p>❤️❤️❤️</p>
-                            <a target="_blank" href="https://ichochy.com"><p>By iChochy</p></a>
+                            <a target="_blank" href="https://sakuradoctor.com"><p>By 呉 福興</p></a>
                         </div>
             `;
             content.innerHTML = sentencesHTML + footerHTML;
