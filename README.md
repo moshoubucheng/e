@@ -3,14 +3,11 @@
 ### 课文点读系统
 在线课文朗读，单句点读，中英对照，随时随地在线自学英语。  
 
-Demo：[http://nce.ichochy.com](http://nce.ichochy.com)  
+Demo：[https://sakuradoctor.com](https://sakuradoctor.com)  
 
 --- 
 
-## 信息
-Blog：[http://ichochy.com](http://ichochy.com)   
-Email: [me@ichochy.com](mailto:me@ichochy.com)   
-GitHub：[https://github.com/ichochy/nce](https://github.com/ichochy/nce)   
+## 信息 
 音频资源：[https://github.com/tangx/New-Concept-English](https://github.com/tangx/New-Concept-English)    
 
 ---
