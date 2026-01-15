@@ -30,16 +30,18 @@
         const bookImgEl = document.getElementById('book-img');
         const lessonTitleEl = document.getElementById('lesson-title');
         const lessonLRCByEl = document.getElementById('lesson-lrc-by');
+        const langToggle = document.getElementById('lang-toggle');
 
         /** 数据结构 */
         const state = {
-            data: [],          // [{en, cn, start, end}]
+            data: [],          // [{en, cn, ja, start, end}]
             album: '',
             artist: '',
             title: '',
             by: '',
             segmentEnd: 0,
-            activeIdx: -1
+            activeIdx: -1,
+            language: localStorage.getItem('nce-lang') || 'cn'  // 当前显示语言
         };
         audio.src = mp3Src;
         bookImgEl.src = bookImgSrc;
@@ -64,7 +66,7 @@
         }
 
         /** -------------------------------------------------
-         *  LRC 解析
+         *  LRC 解析 (支持三语: en | cn | ja)
          * ------------------------------------------------- */
         async function loadLrc() {
             const lrcRes = await fetch(lrcSrc);
@@ -80,7 +82,10 @@
                 }
 
                 const start = parseTime(`[${match[1]}]`);
-                const [en, cn = ''] = match[2].split('|').map(s => s.trim());
+                const parts = match[2].split('|').map(s => s.trim());
+                const en = parts[0] || '';
+                const cn = parts[1] || '';
+                const ja = parts[2] || '';
 
                 let end = 0;
                 for (let j = i + 1; j < lines.length; j++) {
@@ -90,11 +95,11 @@
                         break;
                     }
                 }
-                state.data.push({en, cn, start, end});
+                state.data.push({en, cn, ja, start, end});
             });
             render();
+            updateLangToggle();
         }
-
 
         /** -------------------------------------------------
          *  渲染
@@ -105,11 +110,13 @@
             lessonTitleEl.textContent = state.title;
             lessonLRCByEl.textContent = state.by;
 
+            const lang = state.language;
             const sentencesHTML = state.data.map(
                 (item, idx) =>
                     `<div class="sentence" data-idx="${idx}">
                     <div class="en">${item.en}</div>
-                    <div class="cn">${item.cn}</div>
+                    <div class="cn ${lang !== 'cn' ? 'hidden' : ''}">${item.cn}</div>
+                    <div class="ja ${lang !== 'ja' ? 'hidden' : ''}">${item.ja}</div>
                 </div>`
             ).join('');
             const footerHTML = `
@@ -120,6 +127,36 @@
                         </div>
             `;
             content.innerHTML = sentencesHTML + footerHTML;
+        }
+
+        /** -------------------------------------------------
+         *  语言切换
+         * ------------------------------------------------- */
+        function updateLangToggle() {
+            if (!langToggle) return;
+            const buttons = langToggle.querySelectorAll('.lang-btn');
+            buttons.forEach(btn => {
+                if (btn.dataset.lang === state.language) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+        }
+
+        function switchLanguage(lang) {
+            state.language = lang;
+            localStorage.setItem('nce-lang', lang);
+
+            // 更新显示
+            document.querySelectorAll('.sentence .cn').forEach(el => {
+                el.classList.toggle('hidden', lang !== 'cn');
+            });
+            document.querySelectorAll('.sentence .ja').forEach(el => {
+                el.classList.toggle('hidden', lang !== 'ja');
+            });
+
+            updateLangToggle();
         }
 
         /** -------------------------------------------------
@@ -157,6 +194,15 @@
             const {start, end} = state.data[idx];
             playSegment(start, end);
         });
+
+        // 语言切换按钮
+        if (langToggle) {
+            langToggle.addEventListener('click', e => {
+                const btn = e.target.closest('.lang-btn');
+                if (!btn) return;
+                switchLanguage(btn.dataset.lang);
+            });
+        }
 
         audio.addEventListener('timeupdate', () => {
             const cur = audio.currentTime;
