@@ -1,7 +1,7 @@
 # 新概念英语-全四册
 ## New Concept English
 ### 课文点读系统
-在线课文朗读，单句点读，中英对照，随时随地在线自学英语。  
+在线课文朗读，单句点读，中日英对照，随时随地在线自学英语。  
 
 Demo：[https://sakuradoctor.com](https://sakuradoctor.com)  
 
@@ -13,9 +13,8 @@ Demo：[https://sakuradoctor.com](https://sakuradoctor.com)
 ---
 
 ## 说明
-音频为美音，中文字幕为 [Gemini AI](https://aistudio.google.com) 生成。没有**一一核对**，会有一些错误和不足，欢迎大家指正和完善。
+音频为美音，中文日文字幕为 claude翻译生成。没有**一一核对**，会有一些错误和不足，欢迎大家指正和完善。
 
-自己还特意写了一个Python脚本（[iGSTT](https://ichochy.com/posts/shell/20251015.html)）实现中文翻译
 
 ---
 
@@ -127,7 +126,7 @@ Demo：[https://sakuradoctor.com](https://sakuradoctor.com)
 
 内容源于互联网，我们不对内容的版权归属承担任何责任。  
 如您认为本网站上的任何内容侵犯了您的著作权或其他合法权益，请通过以下联系方式通知我们。    
-联系邮箱：me@ichochy.com。   
+联系邮箱：wufuxing@me.com   
 我们将在收到有效通知后尽快核实并采取相应措施（如删除相关内容）。  
 
 为尊重和保护著作权人的合法权益，请您支持正版，购买合法授权的教材或资源，避免使用未经授权的内容。  
